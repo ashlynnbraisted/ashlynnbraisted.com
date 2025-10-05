@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/braisted.com/static/css/main.bbfee166.css",
+    "main.js": "/braisted.com/static/js/main.602693a4.js",
+    "index.html": "/braisted.com/index.html",
+    "main.bbfee166.css.map": "/braisted.com/static/css/main.bbfee166.css.map",
+    "main.602693a4.js.map": "/braisted.com/static/js/main.602693a4.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bbfee166.css",
+    "static/js/main.602693a4.js"
+  ]
+}
