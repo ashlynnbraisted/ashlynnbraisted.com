@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/braisted.com/static/css/main.bbfee166.css",
-    "main.js": "/braisted.com/static/js/main.031fed49.js",
-    "index.html": "/braisted.com/index.html",
-    "main.bbfee166.css.map": "/braisted.com/static/css/main.bbfee166.css.map",
-    "main.031fed49.js.map": "/braisted.com/static/js/main.031fed49.js.map"
+    "main.css": "/static/css/main.bbfee166.css",
+    "main.js": "/static/js/main.aa475658.js",
+    "index.html": "/index.html",
+    "main.bbfee166.css.map": "/static/css/main.bbfee166.css.map",
+    "main.aa475658.js.map": "/static/js/main.aa475658.js.map"
   },
   "entrypoints": [
     "static/css/main.bbfee166.css",
-    "static/js/main.031fed49.js"
+    "static/js/main.aa475658.js"
   ]
 }
