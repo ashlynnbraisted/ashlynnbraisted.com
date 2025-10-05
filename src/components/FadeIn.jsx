@@ -6,7 +6,7 @@ const MotionBox = chakra(motion.div, {
     isValidMotionProp(prop) || shouldForwardProp(prop),
 });
 
-export const FadeIn = ({ children, delay = 0 }) => {
+const FadeIn = ({ children, delay = 0 }) => {
   return (
     <MotionBox
       initial={{ opacity: 0, y: 20 }}

@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const MotionBox = motion(Box);
 
-export const InfoTip = React.forwardRef(function InfoTip(
+const InfoTip = React.forwardRef(function InfoTip(
   { content, buttonProps, ...rest },
   ref
 ) {

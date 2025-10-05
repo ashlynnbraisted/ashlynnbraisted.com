@@ -1,29 +1,29 @@
-import { Box, Image, Text } from "@chakra-ui/react";
+import { Image, Flex, Link, Text } from "@chakra-ui/react";
+import Typewriter from "../components/Typewriter";
 
 function Contact() {
   return (
-    <Box
-      height="90vh"
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      textAlign="center"
-      px={4}
-    >
-      <Image
-        src="headshot.jpg"
-        alt="Headshot Image"
-        height="40vh"
-        pb={8}
-      ></Image>
-      <Text fontSize="xl">
-        If you’d like to get in touch, please email me at{" "}
-        <a href="mailto:ashlynnbraisted@gmail.com" style={{ color: "#2F00FF" }}>
-          ashlynnbraisted@gmail.com
-        </a>
-      </Text>
-    </Box>
+    <Flex flexDirection="column">
+      <Typewriter text="Contact" repeating={false} />
+      <Flex flexDirection="column" alignItems="center" mt={"5%"}>
+        <Image
+          src="headshot.jpg"
+          alt="Headshot Image"
+          height="40vh"
+          mb={8}
+        ></Image>
+        <Text fontSize="xl">
+          If you’d like to get in touch, please email me at{" "}
+          <Link
+            href="mailto:ashlynnbraisted@gmail.com"
+            color="primary.500"
+            isExternal
+          >
+            ashlynnbraisted@gmail.com
+          </Link>
+        </Text>
+      </Flex>
+    </Flex>
   );
 }
 

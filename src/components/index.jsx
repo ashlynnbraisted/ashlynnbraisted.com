@@ -5,4 +5,6 @@ export { default as PageFade } from "./PageFade";
 export { default as ScrollingBanner } from "./ScrollingBanner";
 export { default as Typewriter } from "./Typewriter";
 export { default as InfoTip } from "./ToggleTip";
-export { default as Badges } from "./Badges";
+export { default as BadgeList } from "./BadgeList";
+export { default as ZigZagGame } from "./ZigZagGame";
+export { default as ScrollArea } from "./ScrollArea";
