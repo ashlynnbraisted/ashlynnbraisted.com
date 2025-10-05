@@ -7,7 +7,7 @@ function Resume() {
       <Typewriter text="Resume" repeating={false} />
       <Box align="center">
         <Image
-          src="resume.svg"
+          src={`${process.env.PUBLIC_URL}/resume.svg`}
           alt="Resume"
           fit={"contain"}
           border={"1px solid #2F00FF"}

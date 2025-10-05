@@ -70,7 +70,7 @@ function Home() {
       >
         <ImageWithInfo
           width="65%"
-          src="/homepage.jpg"
+          src={`${process.env.PUBLIC_URL}/homepage.jpg`}
           alt="Home Page Photo"
           caption="This photo was taken in Banff National Park on the Plain of Six Glaciers trail."
         />

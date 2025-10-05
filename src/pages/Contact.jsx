@@ -7,7 +7,7 @@ function Contact() {
       <Typewriter text="Contact" repeating={false} />
       <Flex flexDirection="column" alignItems="center" mt={"5%"}>
         <Image
-          src="headshot.jpg"
+          src={`${process.env.PUBLIC_URL}/headshot.jpg`}
           alt="Headshot Image"
           height="40vh"
           mb={8}

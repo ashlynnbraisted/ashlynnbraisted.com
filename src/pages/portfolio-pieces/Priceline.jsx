@@ -11,12 +11,12 @@ function Priceline() {
     >
       <ScrollArea width={"45%"}>
         <Image
-          src="/priceline-components.svg"
+          src={`${process.env.PUBLIC_URL}/priceline-components.svg`}
           alt="Priceline Components"
         ></Image>
         <video
           title="Priceline Demo"
-          src="/priceline-demo.mov"
+          src={`${process.env.PUBLIC_URL}/priceline-demo.mov`}
           autoPlay
           loop
           muted
