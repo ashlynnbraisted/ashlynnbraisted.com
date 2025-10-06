@@ -9,8 +9,8 @@ const blinkAnimation = keyframes`
 
 const Typewriter = ({
   text,
-  speed = 100,
-  pause = 2000,
+  speed = 75,
+  pause = 1250,
   repeating = true,
   ...props
 }) => {
@@ -18,7 +18,6 @@ const Typewriter = ({
   const [isPaused, setIsPaused] = useState(false);
   const [cursorVisible, setCursorVisible] = useState(true);
 
-  // Stable array of texts
   const texts = useMemo(() => (Array.isArray(text) ? text : [text]), [text]);
 
   const textIndexRef = useRef(0);
@@ -28,9 +27,10 @@ const Typewriter = ({
 
   useEffect(() => {
     const currentText = () => texts[textIndexRef.current];
+    const pauseTime = repeating ? pause : pause * 2;
 
     const handlePause = () => {
-      if (pauseCounterRef.current < pause / speed) {
+      if (pauseCounterRef.current < pauseTime / speed) {
         pauseCounterRef.current += 1;
         setIsPaused(true);
         return true; // still pausing
@@ -85,9 +85,9 @@ const Typewriter = ({
         {cursorVisible && (
           <Text
             as="span"
-            ml={2}
+            ml={1}
             color="primary.500"
-            animation={isPaused ? `${blinkAnimation} 2s infinite` : "none"}
+            animation={isPaused ? `${blinkAnimation} 1.5s infinite` : "none"}
           >
             |
           </Text>

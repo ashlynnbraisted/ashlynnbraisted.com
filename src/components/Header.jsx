@@ -24,7 +24,7 @@ const Header = () => {
       bg="white"
     >
       <Image
-        src={`${process.env.PUBLIC_URL}/logo ab.svg`}
+        src={`${process.env.PUBLIC_URL}/logo-ab.svg`}
         alt="Ashlynn Braisted"
         cursor="pointer"
         boxSize="40px"

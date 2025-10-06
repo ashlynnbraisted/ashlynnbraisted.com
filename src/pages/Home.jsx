@@ -1,5 +1,5 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
-import { ImageWithInfo, Typewriter, ZigZagGame, Footer } from "../components";
+import { ImageWithInfo, Typewriter, ZigZagGame } from "../components";
 
 function Home() {
   const paragraphs = [
