@@ -41,8 +41,8 @@ const About = () => {
             . During my studies, I completed two 6-month full-time
             <span className="bold-blue"> Web Development</span> positions, led a
             mentorship program teaching foundational coding skills to middle
-            school girls as president of Northeastern's Girls Who Code chapter,
-            and photographed concerts for <i>Tastemakers</i> magazine.
+            school girls as president of Girls Who Code, and photographed
+            concerts for <i>Tastemakers</i> magazine.
           </Text>
 
           <Text>
