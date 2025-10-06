@@ -1,15 +1,19 @@
-import { Box, Image, Text } from "@chakra-ui/react";
+import { Box, Card, Image, Text } from "@chakra-ui/react";
 import { BadgeList, ScrollArea } from "../../components";
 
-function Priceline() {
+const Priceline = () => {
   return (
-    <Box
-      display="flex"
+    <Card
+      borderRadius={0}
       flexDirection="row"
       alignItems="center"
       justifyContent="space-evenly"
+      width={"90%"}
+      variant={"outline"}
+      px={10}
+      gap={10}
     >
-      <ScrollArea width={"45%"}>
+      <ScrollArea width={"65%"}>
         <Image
           src={`${process.env.PUBLIC_URL}/priceline-components.svg`}
           alt="Priceline Components"
@@ -24,11 +28,11 @@ function Priceline() {
         ></video>
       </ScrollArea>
       <Box maxWidth="30%">
-        <Text fontSize={64} fontWeight="medium" color="primary.500">
+        <Text fontSize={40} fontWeight="medium" color="primary.500">
           <a href="https://www.priceline.com">Priceline.com</a>
         </Text>
-        <Text fontSize="2xl" mt={-3}>
-          Work Sample
+        <Text fontSize={20} mt={-2}>
+          Frontend Work Sample
         </Text>
         <BadgeList
           badges={[
@@ -40,32 +44,23 @@ function Priceline() {
             "Storybook",
           ]}
         />
-        <Text fontSize="lg" mt={4}>
+        <Text fontSize={16} mt={4}>
           As a Software Engineering Co-op on Priceline’s Rental Car WebUX Team,
-          I <span className="bold">built, designed,</span> and{" "}
-          <span className="bold">maintained</span> front-end features for the
-          website.
+          I built, designed, and maintained front-end features for the website.
         </Text>
-        <Text fontSize="lg" mt={4}>
-          One key feature I developed was a{" "}
-          <span className="bold">multi-page dialog</span> that allows users to
-          cancel their trip protection easily and independently,
-          <span className="bold">
-            {" "}
-            eliminating the need for customer service calls
-          </span>{" "}
-          and associated costs.
+        <Text fontSize={16} mt={4}>
+          One key feature I developed was a multi-page dialog that allows users
+          to cancel their trip protection easily and independently, eliminating
+          the need for customer service calls and associated costs.
         </Text>
-        <Text fontSize="lg" mt={4}>
-          The flow integrates with GraphQL and backend APIs and is engineered to{" "}
-          <span className="bold">
-            seamlessly scale to additional cancellation types
-          </span>{" "}
-          in future development.
+        <Text fontSize={16} mt={4}>
+          The flow integrates with GraphQL and backend APIs and is engineered to
+          seamlessly scale to additional cancellation types in future
+          development.
         </Text>
       </Box>
-    </Box>
+    </Card>
   );
-}
+};
 
 export default Priceline;

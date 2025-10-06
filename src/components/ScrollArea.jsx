@@ -29,16 +29,17 @@ const ScrollArea = ({ children, ...props }) => {
 
   return (
     <Box {...props}>
-      <Flex alignItems={"center"} py={5}>
-        {page > 0 && (
-          <IconButton
-            aria-label="Scroll left"
-            icon={<FaChevronLeft />}
-            onClick={() => scrollByPage(-1)}
-            right={2}
-            variant="ghost"
-          />
-        )}
+      <Flex alignItems="center" pt={6}>
+        <IconButton
+          aria-label="Scroll left"
+          icon={<FaChevronLeft />}
+          onClick={() => scrollByPage(-1)}
+          right={3}
+          variant="ghost"
+          color="secondary.500"
+          visibility={page > 0 ? "visible" : "hidden"} // hide but keep space
+        />
+
         <Flex
           ref={containerRef}
           overflowX="auto"
@@ -55,25 +56,25 @@ const ScrollArea = ({ children, ...props }) => {
           ))}
         </Flex>
 
-        {page < items.length - 1 && (
-          <IconButton
-            aria-label="Scroll right"
-            icon={<FaChevronRight />}
-            onClick={() => scrollByPage(1)}
-            left={2}
-            variant="ghost"
-          />
-        )}
+        <IconButton
+          aria-label="Scroll right"
+          icon={<FaChevronRight />}
+          onClick={() => scrollByPage(1)}
+          left={3}
+          variant="ghost"
+          color="secondary.500"
+          visibility={page < items.length - 1 ? "visible" : "hidden"} // hide but keep space
+        />
       </Flex>
 
-      <HStack justify="center">
+      <HStack justify="center" pt={3} pb={6}>
         {items.map((_, i) => (
           <Box
             key={i}
-            w={2.5}
-            h={2.5}
+            w={2}
+            h={2}
             borderRadius="full"
-            bg={i === page ? "primary.500" : "gray.300"}
+            bg={i === page ? "primary.500" : "secondary.400"}
           />
         ))}
       </HStack>

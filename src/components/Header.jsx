@@ -1,4 +1,4 @@
-import { Flex, Image, Text } from "@chakra-ui/react";
+import { Flex, Image, Tabs, TabList, Tab } from "@chakra-ui/react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const Header = () => {
@@ -8,19 +8,20 @@ const Header = () => {
   const links = [
     { name: "Portfolio", path: "/portfolio" },
     { name: "Resume", path: "/resume" },
-    { name: "Contact", path: "/contact" },
+    { name: "About", path: "/about" },
   ];
+
+  const currentIndex = links.findIndex(
+    (link) => link.path === location.pathname
+  );
 
   return (
     <Flex
-      as="header"
-      pt={8}
-      pb={14}
+      py={8}
       justifyContent="space-between"
-      fontSize={24}
       position="sticky"
-      zIndex={10}
       top={0}
+      zIndex={10}
       bg="white"
     >
       <Image
@@ -31,21 +32,25 @@ const Header = () => {
         onClick={() => navigate("/")}
       />
 
-      <Flex justify="space-between" width="20%">
-        {links.map((link) => (
-          <Text
-            key={link.path}
-            cursor="pointer"
-            _hover={{ textDecoration: "underline" }}
-            onClick={() => navigate(link.path)}
-            textDecoration={
-              location.pathname === link.path ? "underline" : "none"
-            }
-          >
-            {link.name}
-          </Text>
-        ))}
-      </Flex>
+      <Tabs
+        index={currentIndex >= 0 ? currentIndex : -1} // <-- -1 means no tab selected
+        onChange={(index) => navigate(links[index].path)}
+        variant="unstyled"
+        size="lg"
+      >
+        <TabList>
+          {links.map((link) => (
+            <Tab
+              fontSize={"22px"}
+              key={link.path}
+              _selected={{ color: "white", bg: "primary.500" }}
+              height={"40px"}
+            >
+              {link.name}
+            </Tab>
+          ))}
+        </TabList>
+      </Tabs>
     </Flex>
   );
 };

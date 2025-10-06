@@ -1,80 +1,26 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
-import { ImageWithInfo, Typewriter, ZigZagGame } from "../components";
+import { Flex } from "@chakra-ui/react";
+import { Typewriter, ZigZagGame } from "../components";
 
 function Home() {
-  const paragraphs = [
-    {
-      text: (
-        <>
-          I’m a <span className="bold-blue">Software Engineer</span> with a
-          passion for human-centered design and quality web solutions.
-        </>
-      ),
-      delay: 2,
-    },
-    {
-      text: (
-        <>
-          I recently graduated from Northeastern University with a
-          <span className="bold-blue"> BS </span> in
-          <span className="bold-blue">
-            {" "}
-            Computer Science and Interaction Design
-          </span>{" "}
-          and spent the summer on a cross-country National Parks camping trip!
-        </>
-      ),
-      delay: 4,
-    },
-    {
-      text: (
-        <>
-          During undergrad, I completed two 6-month full-time
-          <span className="bold-blue"> Web Development</span> positions, led a
-          mentorship program teaching foundational coding skills to middle
-          school girls as president of Northeastern's Girls Who Code chapter,
-          and photographed concerts for <i>Tastemakers</i> magazine.
-        </>
-      ),
-      delay: 6,
-    },
-    {
-      text: (
-        <>
-          Outside of work, I love to hike, crochet, and play <i>Catan</i>. Take
-          a look around to see some of my work — including this site, which I
-          designed and built from scratch!
-        </>
-      ),
-      delay: 8,
-    },
-  ];
-
   return (
-    <Box>
+    <Flex
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      height={"80vh"}
+    >
       <Typewriter
-        text={["Hello, World!", "I'm Ashlynn."]}
+        text={[
+          "Hello, World!",
+          "I'm Ashlynn.",
+          "This is my website.",
+          "Thanks for stopping by!",
+        ]}
         position="relative"
         zIndex={1}
       />
-      <Flex justifyContent={"space-between"} position="relative">
-        <Box width="30%" fontSize={20} mt={10}>
-          {paragraphs.map(({ text }, idx) => (
-            <Text key={idx} mb={idx < paragraphs.length - 1 ? 6 : 0}>
-              {text}
-            </Text>
-          ))}
-          <ZigZagGame mt={16} />
-        </Box>
-        <ImageWithInfo
-          width="65%"
-          src={`${process.env.PUBLIC_URL}/homepage.jpg`}
-          alt="Home Page Photo"
-          caption="This photo was taken in Banff National Park on the Plain of Six Glaciers trail."
-          mt={-10}
-        />
-      </Flex>
-    </Box>
+      <ZigZagGame mt={16} />
+    </Flex>
   );
 }
 

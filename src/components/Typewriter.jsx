@@ -9,8 +9,8 @@ const blinkAnimation = keyframes`
 
 const Typewriter = ({
   text,
-  speed = 75,
-  pause = 1250,
+  speed = 50,
+  pause = 800,
   repeating = true,
   ...props
 }) => {
@@ -24,70 +24,89 @@ const Typewriter = ({
   const charIndexRef = useRef(0);
   const directionRef = useRef(1); // 1 = typing, -1 = deleting
   const pauseCounterRef = useRef(0);
+  const intervalRef = useRef(null);
 
   useEffect(() => {
-    const currentText = () => texts[textIndexRef.current];
-    const pauseTime = repeating ? pause : pause * 2;
+    if (!texts.length) return; // nothing to type
+
+    const currentText = () => {
+      if (textIndexRef.current < 0 || textIndexRef.current >= texts.length) {
+        return ""; // safe fallback
+      }
+      return texts[textIndexRef.current];
+    };
+    const pauseTime = repeating || texts.length > 1 ? pause : pause * 2;
 
     const handlePause = () => {
       if (pauseCounterRef.current < pauseTime / speed) {
         pauseCounterRef.current += 1;
         setIsPaused(true);
-        return true; // still pausing
+        return true;
       }
       pauseCounterRef.current = 0;
       setIsPaused(false);
-      return false; // pause complete
+      return false;
     };
 
     const typeForward = () => {
-      if (charIndexRef.current < currentText().length) {
-        setDisplayedText(currentText().slice(0, charIndexRef.current + 1));
+      const text = currentText();
+      if (charIndexRef.current < text.length) {
+        setDisplayedText(text.slice(0, charIndexRef.current + 1));
         charIndexRef.current += 1;
-        setIsPaused(false);
-      } else if (repeating) {
-        if (!handlePause()) {
-          directionRef.current = -1;
-          charIndexRef.current -= 1;
-        }
       } else {
         if (!handlePause()) {
-          setCursorVisible(false);
+          // stop if last text & non-repeating
+          if (!repeating && textIndexRef.current === texts.length - 1) {
+            setCursorVisible(false);
+            clearInterval(intervalRef.current);
+          } else {
+            directionRef.current = -1; // start deleting
+            charIndexRef.current = text.length - 1; // safe reset
+          }
         }
       }
     };
 
     const deleteBackward = () => {
+      const text = currentText();
       if (charIndexRef.current >= 0) {
-        setDisplayedText(currentText().slice(0, charIndexRef.current));
+        setDisplayedText(text.slice(0, charIndexRef.current));
         charIndexRef.current -= 1;
-        setIsPaused(false);
-      } else if (repeating) {
+      } else {
         if (!handlePause()) {
-          directionRef.current = 1;
+          textIndexRef.current += 1;
+          if (textIndexRef.current >= texts.length) {
+            if (repeating) {
+              textIndexRef.current = 0;
+            } else {
+              setCursorVisible(false);
+              clearInterval(intervalRef.current);
+              return;
+            }
+          }
+          directionRef.current = 1; // back to typing
           charIndexRef.current = 0;
-          textIndexRef.current = (textIndexRef.current + 1) % texts.length;
         }
       }
     };
 
-    const interval = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       directionRef.current === 1 ? typeForward() : deleteBackward();
     }, speed);
 
-    return () => clearInterval(interval);
+    return () => clearInterval(intervalRef.current);
   }, [texts, speed, pause, repeating]);
 
   return (
     <Box {...props}>
-      <Text fontSize={128} color="primary.500" lineHeight="1">
+      <Text fontSize={64} fontWeight={500} color="primary.500" lineHeight="1">
         {displayedText}
         {cursorVisible && (
           <Text
             as="span"
             ml={1}
             color="primary.500"
-            animation={isPaused ? `${blinkAnimation} 1.5s infinite` : "none"}
+            animation={isPaused ? `${blinkAnimation} 1s infinite` : "none"}
           >
             |
           </Text>
