@@ -1,4 +1,4 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Image, Text } from "@chakra-ui/react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const Header = () => {
@@ -23,13 +23,13 @@ const Header = () => {
       top={0}
       bg="white"
     >
-      <Text
+      <Image
+        src={`${process.env.PUBLIC_URL}/logo ab.svg`}
+        alt="Ashlynn Braisted"
         cursor="pointer"
-        _hover={{ textDecoration: "underline" }}
+        boxSize="40px"
         onClick={() => navigate("/")}
-      >
-        Ashlynn Braisted
-      </Text>
+      />
 
       <Flex justify="space-between" width="20%">
         {links.map((link) => (

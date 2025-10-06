@@ -1,0 +1,11 @@
+import { Box, Text } from "@chakra-ui/react";
+
+const Footer = () => (
+  <Box py={4} textAlign="right">
+    <Text fontSize="sm" color="secondary.400">
+      &copy; {new Date().getFullYear()} Ashlynn Braisted.
+    </Text>
+  </Box>
+);
+
+export default Footer;

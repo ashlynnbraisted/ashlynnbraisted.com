@@ -7,7 +7,7 @@ function Portfolio() {
     <Box position="relative" minHeight="85vh">
       <Typewriter text="Portfolio" repeating={false} mb={5} />
       <Priceline />
-      <Box position="absolute" bottom="10px" left="0" right="0">
+      <Box position="absolute" bottom="50px" left="0" right="0">
         <Wip />
       </Box>
     </Box>

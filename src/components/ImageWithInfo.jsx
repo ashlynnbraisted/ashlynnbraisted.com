@@ -3,9 +3,9 @@ import InfoTip from "./ToggleTip";
 
 const ImageWithInfo = ({ src, alt, caption, ...props }) => {
   return (
-    <Box position="relative" display="inline-block" {...props}>
+    <Box position="relative" {...props}>
       <Image src={src} alt={alt} />
-      <Box position="absolute" bottom={2} right={2} zIndex={10}>
+      <Box position="absolute" bottom={4} right={2} zIndex={10}>
         <InfoTip content={caption} />
       </Box>
     </Box>

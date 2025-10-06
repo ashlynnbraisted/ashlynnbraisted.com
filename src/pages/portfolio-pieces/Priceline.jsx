@@ -24,7 +24,7 @@ function Priceline() {
         ></video>
       </ScrollArea>
       <Box maxWidth="30%">
-        <Text fontSize={64} fontWeight="semibold" color="primary.500">
+        <Text fontSize={64} fontWeight="medium" color="primary.500">
           <a href="https://www.priceline.com">Priceline.com</a>
         </Text>
         <Text fontSize="2xl" mt={-3}>

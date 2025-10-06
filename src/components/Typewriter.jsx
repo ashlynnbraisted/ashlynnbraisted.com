@@ -1,6 +1,11 @@
 import { Box, Text } from "@chakra-ui/react";
 import { keyframes } from "@emotion/react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
+
+const blinkAnimation = keyframes`
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+`;
 
 const Typewriter = ({
   text,
@@ -13,75 +18,65 @@ const Typewriter = ({
   const [isPaused, setIsPaused] = useState(false);
   const [cursorVisible, setCursorVisible] = useState(true);
 
-  const indexRef = useRef(0);
+  // Stable array of texts
+  const texts = useMemo(() => (Array.isArray(text) ? text : [text]), [text]);
+
+  const textIndexRef = useRef(0);
+  const charIndexRef = useRef(0);
   const directionRef = useRef(1); // 1 = typing, -1 = deleting
   const pauseCounterRef = useRef(0);
 
-  const blink = keyframes`
-    0%, 50%, 100% { opacity: 1; }
-    25%, 75% { opacity: 0; }
-  `;
-
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (directionRef.current === 1) {
-        // Typing
-        if (indexRef.current < text.length) {
-          setDisplayedText(text.slice(0, indexRef.current + 1));
-          indexRef.current += 1;
-          setIsPaused(false);
-        } else {
-          if (repeating) {
-            // Pause at full
-            if (pauseCounterRef.current < pause / speed) {
-              pauseCounterRef.current += 1;
-              setIsPaused(true);
-            } else {
-              directionRef.current = -1; // Start deleting
-              pauseCounterRef.current = 0;
-              indexRef.current -= 1;
-              setIsPaused(false);
-            }
-          } else {
-            // Stop once full text is typed
-            clearInterval(interval);
-            setIsPaused(true);
+    const currentText = () => texts[textIndexRef.current];
 
-            // Trigger cursor blinking 3 times
-            let blinks = 0;
-            const blinkInterval = setInterval(() => {
-              setCursorVisible((v) => !v);
-              blinks += 1;
-              if (blinks >= 6) {
-                clearInterval(blinkInterval);
-                setCursorVisible(false);
-              }
-            }, 500);
-          }
-        }
+    const handlePause = () => {
+      if (pauseCounterRef.current < pause / speed) {
+        pauseCounterRef.current += 1;
+        setIsPaused(true);
+        return true; // still pausing
+      }
+      pauseCounterRef.current = 0;
+      setIsPaused(false);
+      return false; // pause complete
+    };
+
+    const typeForward = () => {
+      if (charIndexRef.current < currentText().length) {
+        setDisplayedText(currentText().slice(0, charIndexRef.current + 1));
+        charIndexRef.current += 1;
+        setIsPaused(false);
       } else if (repeating) {
-        // Deleting backward
-        if (indexRef.current >= 0) {
-          setDisplayedText(text.slice(0, indexRef.current));
-          indexRef.current -= 1;
-          setIsPaused(false);
-        } else {
-          // Pause at empty
-          if (pauseCounterRef.current < pause / speed) {
-            pauseCounterRef.current += 1;
-            setIsPaused(true);
-          } else {
-            directionRef.current = 1; // Start typing again
-            pauseCounterRef.current = 0;
-            indexRef.current = 0;
-            setIsPaused(false);
-          }
+        if (!handlePause()) {
+          directionRef.current = -1;
+          charIndexRef.current -= 1;
+        }
+      } else {
+        if (!handlePause()) {
+          setCursorVisible(false);
         }
       }
+    };
+
+    const deleteBackward = () => {
+      if (charIndexRef.current >= 0) {
+        setDisplayedText(currentText().slice(0, charIndexRef.current));
+        charIndexRef.current -= 1;
+        setIsPaused(false);
+      } else if (repeating) {
+        if (!handlePause()) {
+          directionRef.current = 1;
+          charIndexRef.current = 0;
+          textIndexRef.current = (textIndexRef.current + 1) % texts.length;
+        }
+      }
+    };
+
+    const interval = setInterval(() => {
+      directionRef.current === 1 ? typeForward() : deleteBackward();
     }, speed);
 
     return () => clearInterval(interval);
-  }, [text, speed, pause, repeating]);
+  }, [texts, speed, pause, repeating]);
 
   return (
     <Box {...props}>
@@ -89,10 +84,10 @@ const Typewriter = ({
         {displayedText}
         {cursorVisible && (
           <Text
-            color="primary.500"
             as="span"
-            ml="2px"
-            animation={repeating && isPaused ? `${blink} 2s infinite` : "none"}
+            ml={2}
+            color="primary.500"
+            animation={isPaused ? `${blinkAnimation} 2s infinite` : "none"}
           >
             |
           </Text>

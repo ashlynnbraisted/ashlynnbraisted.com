@@ -7,3 +7,4 @@ export { default as InfoTip } from "./ToggleTip";
 export { default as BadgeList } from "./BadgeList";
 export { default as ZigZagGame } from "./ZigZagGame";
 export { default as ScrollArea } from "./ScrollArea";
+export { default as Footer } from "./Footer";
