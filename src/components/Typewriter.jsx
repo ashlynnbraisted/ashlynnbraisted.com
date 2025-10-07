@@ -35,9 +35,14 @@ const Typewriter = ({
       }
       return texts[textIndexRef.current];
     };
-    const pauseTime = repeating || texts.length > 1 ? pause : pause * 2;
 
     const handlePause = () => {
+      const pauseTime =
+        !repeating && textIndexRef.current === texts.length - 1
+          ? pause * 2
+          : directionRef.current === -1
+          ? pause / 3
+          : pause;
       if (pauseCounterRef.current < pauseTime / speed) {
         pauseCounterRef.current += 1;
         setIsPaused(true);

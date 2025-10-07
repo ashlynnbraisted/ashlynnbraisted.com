@@ -7,7 +7,7 @@ import {
   TabPanels,
   VStack,
 } from "@chakra-ui/react";
-import { Priceline, Ribbles, Wip } from "./portfolio-pieces";
+import { ConcertPhotos, Priceline, Ribbles, Swap } from "./portfolio-pieces";
 import { Typewriter } from "../components";
 
 function Portfolio() {
@@ -29,7 +29,7 @@ function Portfolio() {
         zIndex={10}
       />
       <Tabs variant="unstyled" size="lg">
-        <TabList position="sticky" top="192px" bg="white" zIndex={10}>
+        <TabList position="sticky" top="192px" bg="white" zIndex={10} pb={3}>
           <Tab
             p={0}
             pr={8}
@@ -56,19 +56,26 @@ function Portfolio() {
             Photography
           </Tab>
         </TabList>
-        <TabPanels pt={6}>
+        <TabPanels>
           <TabPanel>
-            <VStack spacing={10} mb={5}>
+            <VStack spacing={6} mb={5}>
+              {/* {[Priceline, Ribbles].map((CardComp, i) => (
+                <CardComp key={i} reverseLayout={i % 2 === 1} />
+              ))} */}
               <Priceline />
               <Ribbles />
-              <Wip />
             </VStack>
           </TabPanel>
           <TabPanel>
-            <Wip />
+            <VStack spacing={6} mb={5}>
+              {/* {[Swap].map((CardComp, i) => (
+                <CardComp key={i} reverseLayout={i % 2 === 1} />
+              ))} */}
+              <Swap />
+            </VStack>
           </TabPanel>
           <TabPanel>
-            <Wip />
+            <ConcertPhotos />
           </TabPanel>
         </TabPanels>
       </Tabs>

@@ -1,7 +1,7 @@
-import { Flex, Box, HStack, IconButton } from "@chakra-ui/react";
+import { AspectRatio, Flex, Box, HStack, IconButton } from "@chakra-ui/react";
 import { useRef, useState, useEffect } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-const ScrollArea = ({ children, ...props }) => {
+const ScrollArea = ({ children, aspectRatio = false, ...props }) => {
   const items = Array.isArray(children) ? children : [children];
   const containerRef = useRef(null);
   const [page, setPage] = useState(0);
@@ -29,7 +29,7 @@ const ScrollArea = ({ children, ...props }) => {
 
   return (
     <Box {...props}>
-      <Flex alignItems="center" pt={6}>
+      <Flex alignItems="center">
         <IconButton
           aria-label="Scroll left"
           icon={<FaChevronLeft />}
@@ -48,10 +48,15 @@ const ScrollArea = ({ children, ...props }) => {
             "&::-webkit-scrollbar": { display: "none" },
             scrollbarWidth: "none",
           }}
+          width="100%"
         >
           {items.map((child, i) => (
             <Box key={i} flexShrink={0} scrollSnapAlign="start" w="100%">
-              {child}
+              {aspectRatio ? (
+                <AspectRatio ratio={aspectRatio}>{child}</AspectRatio>
+              ) : (
+                child
+              )}
             </Box>
           ))}
         </Flex>
@@ -67,17 +72,19 @@ const ScrollArea = ({ children, ...props }) => {
         />
       </Flex>
 
-      <HStack justify="center" pt={3} pb={6}>
-        {items.map((_, i) => (
-          <Box
-            key={i}
-            w={2}
-            h={2}
-            borderRadius="full"
-            bg={i === page ? "primary.500" : "secondary.400"}
-          />
-        ))}
-      </HStack>
+      {items.length > 1 && (
+        <HStack justify="center" pt={6} pb={3}>
+          {items.map((_, i) => (
+            <Box
+              key={i}
+              w={2}
+              h={2}
+              borderRadius="full"
+              bg={i === page ? "primary.500" : "secondary.400"}
+            />
+          ))}
+        </HStack>
+      )}
     </Box>
   );
 };

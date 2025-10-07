@@ -9,3 +9,7 @@
   font-weight: 500;
   color: "black";
 }
+html,
+body {
+  overscroll-behavior-y: none;
+}

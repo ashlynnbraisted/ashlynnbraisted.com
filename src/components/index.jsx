@@ -8,3 +8,5 @@ export { default as BadgeList } from "./BadgeList";
 export { default as ZigZagGame } from "./ZigZagGame";
 export { default as ScrollArea } from "./ScrollArea";
 export { default as Footer } from "./Footer";
+export { default as PortfolioCard } from "./PortfolioCard";
+export { default as Video } from "./Video";

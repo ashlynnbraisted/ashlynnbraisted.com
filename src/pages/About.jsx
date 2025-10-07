@@ -1,28 +1,18 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
-import { ImageWithInfo } from "../components";
+import { Box, Image, Flex, Text } from "@chakra-ui/react";
+import { Typewriter } from "../components";
 
 const About = () => {
   return (
     <Flex flexDirection="row" justifyContent="space-between">
-      <Flex
-        height="50vh"
-        width="30%"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <Text color={"primary.500"} fontSize={200}>
-          Who
-        </Text>
+      <Flex height="50vh" width="30%" alignItems="center">
+        <Typewriter text="Ashlynn Braisted" repeating={false} />
       </Flex>
 
       <Flex flexDirection="column" width="30%">
-        <ImageWithInfo
+        <Image
           width="100%"
           src={`${process.env.PUBLIC_URL}/homepage.jpg`}
           alt="Home Page Photo"
-          caption="This photo was taken in Banff National Park on the Plain of Six Glaciers trail."
-          border="1px solid"
-          borderColor="primary.500"
         />
 
         <Box width="100%" fontSize={16} mt={10} textAlign={"center"}>
@@ -52,17 +42,12 @@ const About = () => {
           </Text>
         </Box>
       </Flex>
-
       <Flex
         height="50vh"
         width="30%"
         alignItems="center"
         justifyContent="center"
-      >
-        <Text color={"primary.500"} fontSize={200}>
-          Am I?
-        </Text>
-      </Flex>
+      ></Flex>
     </Flex>
   );
 };

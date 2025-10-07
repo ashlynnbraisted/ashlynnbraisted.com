@@ -1,5 +1,4 @@
 import { Flex, Image } from "@chakra-ui/react";
-import { ScrollingBanner } from "../components";
 
 function Resume() {
   return (
@@ -9,10 +8,6 @@ function Resume() {
       justifyContent="center"
       height={"80vh"}
     >
-      <ScrollingBanner
-        text="Look at all this stuff!"
-        text2="Totally ATS friendly..."
-      ></ScrollingBanner>
       <Image
         src={`${process.env.PUBLIC_URL}/resume.svg`}
         alt="Resume"
