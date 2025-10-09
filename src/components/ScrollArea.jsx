@@ -1,6 +1,8 @@
 import { AspectRatio, Flex, Box, HStack, IconButton } from "@chakra-ui/react";
 import { useRef, useState, useEffect } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+
+// A scrollable media display component
 const ScrollArea = ({ children, aspectRatio = false, ...props }) => {
   const items = Array.isArray(children) ? children : [children];
   const containerRef = useRef(null);
@@ -30,6 +32,7 @@ const ScrollArea = ({ children, aspectRatio = false, ...props }) => {
   return (
     <Box {...props}>
       <Flex alignItems="center">
+        {/* Left arrow */}
         <IconButton
           aria-label="Scroll left"
           icon={<FaChevronLeft />}
@@ -37,9 +40,9 @@ const ScrollArea = ({ children, aspectRatio = false, ...props }) => {
           right={3}
           variant="ghost"
           color="secondary.500"
-          visibility={page > 0 ? "visible" : "hidden"} // hide but keep space
+          visibility={page > 0 ? "visible" : "hidden"}
         />
-
+        {/* Media on display */}
         <Flex
           ref={containerRef}
           overflowX="auto"
@@ -61,6 +64,7 @@ const ScrollArea = ({ children, aspectRatio = false, ...props }) => {
           ))}
         </Flex>
 
+        {/* Right arrow */}
         <IconButton
           aria-label="Scroll right"
           icon={<FaChevronRight />}
@@ -68,10 +72,11 @@ const ScrollArea = ({ children, aspectRatio = false, ...props }) => {
           left={3}
           variant="ghost"
           color="secondary.500"
-          visibility={page < items.length - 1 ? "visible" : "hidden"} // hide but keep space
+          visibility={page < items.length - 1 ? "visible" : "hidden"}
         />
       </Flex>
 
+      {/* Dots below media */}
       {items.length > 1 && (
         <HStack justify="center" pt={6} pb={3}>
           {items.map((_, i) => (
@@ -79,7 +84,6 @@ const ScrollArea = ({ children, aspectRatio = false, ...props }) => {
               key={i}
               w={2}
               h={2}
-              borderRadius="full"
               bg={i === page ? "primary.500" : "secondary.400"}
             />
           ))}

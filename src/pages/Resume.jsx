@@ -1,6 +1,7 @@
 import { Flex, Image } from "@chakra-ui/react";
 
-function Resume() {
+// The "Resume" tab
+const Resume = () => {
   return (
     <Flex
       flexDirection="column"
@@ -19,6 +20,6 @@ function Resume() {
       />
     </Flex>
   );
-}
+};
 
 export default Resume;

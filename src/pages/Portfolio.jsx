@@ -10,7 +10,8 @@ import {
 import { ConcertPhotos, Priceline, Ribbles, Swap } from "./portfolio-pieces";
 import { Typewriter } from "../components";
 
-function Portfolio() {
+// The "Portfolio" tab
+const Portfolio = () => {
   return (
     <Box>
       <Typewriter
@@ -28,6 +29,8 @@ function Portfolio() {
         width="100%"
         zIndex={10}
       />
+
+      {/*A set of tabs to sort portfolio work */}
       <Tabs variant="unstyled" size="lg">
         <TabList position="sticky" top="192px" bg="white" zIndex={10} pb={3}>
           <Tab
@@ -81,6 +84,6 @@ function Portfolio() {
       </Tabs>
     </Box>
   );
-}
+};
 
 export default Portfolio;

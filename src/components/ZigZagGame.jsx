@@ -4,16 +4,19 @@ import { useNavigate } from "react-router-dom";
 import { ImRocket } from "react-icons/im";
 import { BsStars } from "react-icons/bs";
 
+// A game where the user must drag a rocket across a zigzag line
 const ZigzagGame = ({ ...props }) => {
   const svgRef = useRef(null);
   const [position, setPosition] = useState({ x: 0, y: 25 });
   const [dragging, setDragging] = useState(false);
+  const [finished, setFinished] = useState(false);
   const [pathD, setPathD] = useState("");
   const [pathWidth, setPathWidth] = useState(200);
   const [endPoint, setEndPoint] = useState({ x: 200, y: 25 });
 
   const navigate = useNavigate();
 
+  // Generates a random path
   useEffect(() => {
     const width = 200 + Math.random() * 100;
     const height = 75;
@@ -28,11 +31,9 @@ const ZigzagGame = ({ ...props }) => {
       const x = i * segmentWidth;
       let y;
       if ((i % 2 === 1 && startUp) || (i % 2 === 0 && !startUp)) {
-        // go upward
-        y = 10 + Math.random() * 10;
+        y = 10 + Math.random() * 10; // upward
       } else {
-        // go downward
-        y = height - (10 + Math.random() * 10);
+        y = height - (10 + Math.random() * 10); // downward
       }
       path += ` L${x},${y}`;
       lastPoint = { x, y };
@@ -44,16 +45,16 @@ const ZigzagGame = ({ ...props }) => {
     setPosition({ x: 0, y: height / 2 });
   }, []);
 
-  const handleMouseDown = () => setDragging(true);
-  const handleMouseUp = () => setDragging(false);
+  // Start dragging (mouse or touch)
+  const startDrag = () => setDragging(true);
+  const stopDrag = () => setDragging(false);
 
-  const handleMouseMove = (e) => {
-    if (!dragging) return;
-
+  // Moves rocket along path
+  const moveRocket = (clientX, clientY) => {
     const svg = svgRef.current;
     const rect = svg.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
+    const mouseX = clientX - rect.left;
+    const mouseY = clientY - rect.top;
 
     const path = svg.querySelector("path");
     const totalLength = path.getTotalLength();
@@ -78,18 +79,31 @@ const ZigzagGame = ({ ...props }) => {
 
     setPosition({ x: closestPoint.x, y: closestPoint.y, angle });
 
-    // end detection
+    // End detection
     if (closestPoint.x >= pathWidth - 1) {
       setDragging(false);
+      setFinished(true);
       navigate("/portfolio");
     }
+  };
+
+  const handleMouseMove = (e) => {
+    if (dragging) moveRocket(e.clientX, e.clientY);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!dragging) return;
+    const touch = e.touches[0];
+    moveRocket(touch.clientX, touch.clientY);
   };
 
   return (
     <Box
       onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp}
+      onMouseUp={stopDrag}
+      onMouseLeave={stopDrag}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={stopDrag}
       width={pathWidth + 45 + "px"}
       height="75px"
       position="relative"
@@ -97,8 +111,10 @@ const ZigzagGame = ({ ...props }) => {
       userSelect="none"
       mx="auto"
       mt={6}
+      touchAction="none"
       {...props}
     >
+      {/* Zig zag path */}
       <chakra.svg
         ref={svgRef}
         width="100%"
@@ -108,10 +124,15 @@ const ZigzagGame = ({ ...props }) => {
         <path d={pathD} strokeWidth="1.5" fill="none" />
       </chakra.svg>
 
+      {/* Rocket icon */}
       <Box
         as={ImRocket}
         color={"primary.500"}
-        onMouseDown={handleMouseDown}
+        onMouseDown={startDrag}
+        onTouchStart={(e) => {
+          e.preventDefault();
+          startDrag();
+        }}
         fontSize="40px"
         position="absolute"
         left={position.x - 20 + "px"}
@@ -119,7 +140,8 @@ const ZigzagGame = ({ ...props }) => {
         zIndex={10}
         transform={`rotate(${position.angle + 45}deg)`}
       />
-      {!dragging && (
+      {/* "Drag me!" hint */}
+      {!dragging && !finished && (
         <Box
           position="absolute"
           left={position.x - 20 + "px"}
@@ -131,6 +153,7 @@ const ZigzagGame = ({ ...props }) => {
           (Drag me!)
         </Box>
       )}
+      {/* Stars icon */}
       <Box
         as={BsStars}
         color={"primary.500"}

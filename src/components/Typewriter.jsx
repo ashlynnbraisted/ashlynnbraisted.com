@@ -7,6 +7,7 @@ const blinkAnimation = keyframes`
   25%, 75% { opacity: 0; }
 `;
 
+// A typewriter animation for text
 const Typewriter = ({
   text,
   speed = 50,
@@ -27,15 +28,17 @@ const Typewriter = ({
   const intervalRef = useRef(null);
 
   useEffect(() => {
-    if (!texts.length) return; // nothing to type
+    if (!texts.length) return;
 
+    // Grabs current text
     const currentText = () => {
       if (textIndexRef.current < 0 || textIndexRef.current >= texts.length) {
-        return ""; // safe fallback
+        return "";
       }
       return texts[textIndexRef.current];
     };
 
+    // Handles pause time
     const handlePause = () => {
       const pauseTime =
         !repeating && textIndexRef.current === texts.length - 1
@@ -53,6 +56,7 @@ const Typewriter = ({
       return false;
     };
 
+    // Types forward
     const typeForward = () => {
       const text = currentText();
       if (charIndexRef.current < text.length) {
@@ -60,18 +64,19 @@ const Typewriter = ({
         charIndexRef.current += 1;
       } else {
         if (!handlePause()) {
-          // stop if last text & non-repeating
+          // Stop if last text & non-repeating
           if (!repeating && textIndexRef.current === texts.length - 1) {
             setCursorVisible(false);
             clearInterval(intervalRef.current);
           } else {
-            directionRef.current = -1; // start deleting
-            charIndexRef.current = text.length - 1; // safe reset
+            directionRef.current = -1; // Start deleting
+            charIndexRef.current = text.length - 1; // Safe reset
           }
         }
       }
     };
 
+    // Deletes the text backwards
     const deleteBackward = () => {
       const text = currentText();
       if (charIndexRef.current >= 0) {
@@ -89,7 +94,7 @@ const Typewriter = ({
               return;
             }
           }
-          directionRef.current = 1; // back to typing
+          directionRef.current = 1; // Back to typing
           charIndexRef.current = 0;
         }
       }
@@ -104,8 +109,14 @@ const Typewriter = ({
 
   return (
     <Box {...props}>
-      <Text fontSize={64} fontWeight={500} color="primary.500" lineHeight="1">
-        {displayedText}
+      <Text
+        fontSize={64}
+        fontWeight={500}
+        color="primary.500"
+        lineHeight="1"
+        wordBreak="break-word"
+      >
+        <span>{displayedText}</span>
         {cursorVisible && (
           <Text
             as="span"

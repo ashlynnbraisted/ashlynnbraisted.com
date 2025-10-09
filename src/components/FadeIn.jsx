@@ -6,6 +6,7 @@ const MotionBox = chakra(motion.div, {
     isValidMotionProp(prop) || shouldForwardProp(prop),
 });
 
+// A fade in animation
 const FadeIn = ({ children, delay = 0 }) => {
   return (
     <MotionBox

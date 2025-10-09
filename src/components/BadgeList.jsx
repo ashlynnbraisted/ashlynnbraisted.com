@@ -1,5 +1,6 @@
 import { Badge, Flex } from "@chakra-ui/react";
 
+// A list of badges
 const BadgeList = ({ badges }) => {
   return (
     <Flex wrap="wrap">

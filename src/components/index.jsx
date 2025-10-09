@@ -1,9 +1,7 @@
 export { default as FadeIn } from "./FadeIn";
 export { default as Header } from "./Header";
-export { default as ImageWithInfo } from "./ImageWithInfo";
 export { default as ScrollingBanner } from "./ScrollingBanner";
 export { default as Typewriter } from "./Typewriter";
-export { default as InfoTip } from "./ToggleTip";
 export { default as BadgeList } from "./BadgeList";
 export { default as ZigZagGame } from "./ZigZagGame";
 export { default as ScrollArea } from "./ScrollArea";

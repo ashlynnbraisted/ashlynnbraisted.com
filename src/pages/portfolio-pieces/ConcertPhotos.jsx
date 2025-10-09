@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   Flex,
@@ -15,65 +15,42 @@ import {
 import { BsShuffle } from "react-icons/bs";
 import concertList from "../../concertList.json";
 
-const humanize = (str = "") =>
-  str
-    .replace(/[_-]+/g, " ")
-    .replace(/([a-z])([A-Z])/g, "$1 $2")
-    .replace(/\s+/g, " ")
-    .trim();
-
-function parseFilename(filename) {
-  const name = filename.replace(/\.[^/.]+$/, "");
-  const cleaned = name.replace(/-?(web)?-?\d+$/i, "");
-
-  let artist = "";
-  let venue = "";
-
-  if (cleaned.includes("_")) {
-    const [a, v] = cleaned.split("_");
-    artist = a;
-    venue = v || "";
-  } else if (cleaned.includes("-")) {
-    const [a, v] = cleaned.split("-");
-    artist = a;
-    venue = v || "";
-  } else {
-    artist = cleaned;
-    venue = "";
-  }
-
-  return {
-    src: `/concert/${filename}`,
-    artist: humanize(artist),
-    venue: humanize(venue),
-  };
-}
-
+// A display of photos from public/concerts
 const ConcertPhotos = () => {
-  const [photos, setPhotos] = useState(concertList.map(parseFilename));
+  const [photos, setPhotos] = useState(concertList);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedPhoto, setSelectedPhoto] = useState(null);
 
+  // Opens a modal when a photo is clicked
   const handleClick = (photo) => {
     setSelectedPhoto(photo);
     onOpen();
   };
+  // Shuffles image array
+  const shuffleArray = (arr) => {
+    const shuffled = [...arr];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
 
+  // Shuffle once on mount
+  useEffect(() => {
+    setPhotos(shuffleArray(concertList));
+  }, []);
+
+  // Shuffle on button click
   const handleShuffle = () => {
-    setPhotos((prev) => {
-      const shuffled = [...prev];
-      for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-      }
-      return shuffled;
-    });
+    setPhotos((prev) => shuffleArray(prev));
   };
 
   return (
     <>
       <Flex>
-        <Flex width="10%" alignItems={"flex-start"}>
+        {/* Shuffle Button */}
+        <Flex width="10%" alignItems="flex-start">
           <IconButton
             aria-label="Shuffle Photos"
             icon={<BsShuffle />}
@@ -81,11 +58,12 @@ const ConcertPhotos = () => {
             color="primary.500"
             fontSize={40}
             variant="ghost"
-            _hover={{ bg: "white", transform: "scale(1.05)" }}
+            _hover={{ transform: "scale(1.05)" }}
             position="fixed"
             ml={2}
           />
         </Flex>
+
         {/* Photo Grid */}
         <div
           style={{
@@ -145,6 +123,7 @@ const ConcertPhotos = () => {
             </Box>
           ))}
         </div>
+
         <Box width="10%"></Box>
       </Flex>
 

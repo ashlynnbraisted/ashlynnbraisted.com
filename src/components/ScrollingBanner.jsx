@@ -1,5 +1,6 @@
 import { Flex, Box, Text } from "@chakra-ui/react";
 
+// A scrolling banner across the screen
 const ScrollingBanner = ({ text, text2 = text }) => {
   return (
     <Box

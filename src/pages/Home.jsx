@@ -1,7 +1,8 @@
 import { Flex } from "@chakra-ui/react";
 import { Typewriter, ZigZagGame } from "../components";
 
-function Home() {
+// The "Home" tab
+const Home = () => {
   return (
     <Flex
       flexDirection="column"
@@ -22,6 +23,6 @@ function Home() {
       <ZigZagGame mt={16} />
     </Flex>
   );
-}
+};
 
 export default Home;

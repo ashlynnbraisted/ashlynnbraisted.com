@@ -1,6 +1,7 @@
 import { Image } from "@chakra-ui/react";
 import { PortfolioCard, Video } from "../../components";
 
+// A display of my work from Priceline.com
 const Priceline = (props) => {
   return (
     <PortfolioCard

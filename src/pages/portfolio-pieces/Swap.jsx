@@ -1,6 +1,7 @@
 import { Image, Link } from "@chakra-ui/react";
 import { PortfolioCard } from "../../components";
 
+// A display of my work on Swap
 const Swap = (props) => (
   <PortfolioCard
     title="Swap"

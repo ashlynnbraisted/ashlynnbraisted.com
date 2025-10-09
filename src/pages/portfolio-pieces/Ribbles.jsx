@@ -1,11 +1,12 @@
 import { Image, Link } from "@chakra-ui/react";
 import { PortfolioCard, Video } from "../../components";
 
+// A display of my work on Ribbles
 const Ribbles = (props) => (
   <PortfolioCard
     title="Ribbles"
     subtitle="Coding Challenge - Linz, Austria"
-    badges={["Java", "JUnit", "Processing", "Pharus API"]}
+    badges={["Java", "JUnit", "Processing"]}
     media={[
       <Image
         src={`${process.env.PUBLIC_URL}/ribbles.jpg`}

@@ -2,6 +2,7 @@ import { Box, Card, Text } from "@chakra-ui/react";
 import BadgeList from "./BadgeList";
 import ScrollArea from "./ScrollArea";
 
+// A Portfolio card component
 const PortfolioCard = ({
   title,
   subtitle,
