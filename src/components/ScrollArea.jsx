@@ -1,15 +1,32 @@
-import { AspectRatio, Flex, Box, HStack, IconButton } from "@chakra-ui/react";
+import {
+  AspectRatio,
+  Flex,
+  Box,
+  HStack,
+  IconButton,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { useRef, useState, useEffect } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import MediaModal from "./MediaModal";
 
-// A scrollable media display component
-const ScrollArea = ({ children, aspectRatio = false, ...props }) => {
+const ScrollArea = ({
+  children,
+  aspectRatio = false,
+  previewTitle,
+  previewSubtitle,
+  ...props
+}) => {
   const items = Array.isArray(children) ? children : [children];
   const containerRef = useRef(null);
   const [page, setPage] = useState(0);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedSrc, setSelectedSrc] = useState(null);
 
   useEffect(() => {
     const container = containerRef.current;
+    if (!container) return;
+
     const onScroll = () => {
       const scrollLeft = container.scrollLeft;
       const width = container.offsetWidth;
@@ -29,67 +46,99 @@ const ScrollArea = ({ children, aspectRatio = false, ...props }) => {
     });
   };
 
+  // Handle click on media → open modal
+  const handleMediaClick = (child) => {
+    const src =
+      typeof child === "string"
+        ? child
+        : child?.props?.src || child?.props?.poster || null;
+
+    if (src) {
+      setSelectedSrc(src);
+      onOpen();
+    }
+  };
+
   return (
-    <Box {...props}>
-      <Flex alignItems="center">
-        {/* Left arrow */}
-        <IconButton
-          aria-label="Scroll left"
-          icon={<FaChevronLeft />}
-          onClick={() => scrollByPage(-1)}
-          right={3}
-          variant="ghost"
-          color="secondary.500"
-          visibility={page > 0 ? "visible" : "hidden"}
-        />
-        {/* Media on display */}
-        <Flex
-          ref={containerRef}
-          overflowX="auto"
-          scrollSnapType="x mandatory"
-          css={{
-            "&::-webkit-scrollbar": { display: "none" },
-            scrollbarWidth: "none",
-          }}
-          width="100%"
-        >
-          {items.map((child, i) => (
-            <Box key={i} flexShrink={0} scrollSnapAlign="start" w="100%">
-              {aspectRatio ? (
-                <AspectRatio ratio={aspectRatio}>{child}</AspectRatio>
-              ) : (
-                child
-              )}
-            </Box>
-          ))}
+    <>
+      <Box {...props}>
+        <Flex alignItems="center">
+          {/* Left arrow */}
+          <IconButton
+            aria-label="Scroll left"
+            icon={<FaChevronLeft />}
+            onClick={() => scrollByPage(-1)}
+            right={3}
+            variant="ghost"
+            color="secondary.500"
+            visibility={page > 0 ? "visible" : "hidden"}
+          />
+
+          {/* Media display */}
+          <Flex
+            ref={containerRef}
+            overflowX="auto"
+            scrollSnapType="x mandatory"
+            css={{
+              "&::-webkit-scrollbar": { display: "none" },
+              scrollbarWidth: "none",
+            }}
+            width="100%"
+          >
+            {items.map((child, i) => (
+              <Box
+                key={i}
+                flexShrink={0}
+                scrollSnapAlign="start"
+                w="100%"
+                cursor="pointer"
+                onClick={() => handleMediaClick(child)}
+              >
+                {aspectRatio ? (
+                  <AspectRatio ratio={aspectRatio}>{child}</AspectRatio>
+                ) : (
+                  child
+                )}
+              </Box>
+            ))}
+          </Flex>
+
+          {/* Right arrow */}
+          <IconButton
+            aria-label="Scroll right"
+            icon={<FaChevronRight />}
+            onClick={() => scrollByPage(1)}
+            left={3}
+            variant="ghost"
+            color="secondary.500"
+            visibility={page < items.length - 1 ? "visible" : "hidden"}
+          />
         </Flex>
 
-        {/* Right arrow */}
-        <IconButton
-          aria-label="Scroll right"
-          icon={<FaChevronRight />}
-          onClick={() => scrollByPage(1)}
-          left={3}
-          variant="ghost"
-          color="secondary.500"
-          visibility={page < items.length - 1 ? "visible" : "hidden"}
-        />
-      </Flex>
+        {/* Dots below media */}
+        {items.length > 1 && (
+          <HStack justify="center" pt={6} pb={3}>
+            {items.map((_, i) => (
+              <Box
+                key={i}
+                w={2}
+                h={2}
+                bg={i === page ? "primary.500" : "secondary.400"}
+              />
+            ))}
+          </HStack>
+        )}
+      </Box>
 
-      {/* Dots below media */}
-      {items.length > 1 && (
-        <HStack justify="center" pt={6} pb={3}>
-          {items.map((_, i) => (
-            <Box
-              key={i}
-              w={2}
-              h={2}
-              bg={i === page ? "primary.500" : "secondary.400"}
-            />
-          ))}
-        </HStack>
-      )}
-    </Box>
+      {/* Modal for zoomed preview when media is clicked */}
+      <MediaModal
+        isOpen={isOpen}
+        onClose={onClose}
+        src={selectedSrc}
+        title={previewTitle}
+        subtitle={previewSubtitle}
+      />
+    </>
   );
 };
 

@@ -7,7 +7,13 @@ import {
   TabPanels,
   VStack,
 } from "@chakra-ui/react";
-import { ConcertPhotos, Priceline, Ribbles, Swap } from "./portfolio-pieces";
+import {
+  ConcertPhotos,
+  Priceline,
+  Ribbles,
+  RSI,
+  Swap,
+} from "./portfolio-pieces";
 import { Typewriter } from "../components";
 
 // The "Portfolio" tab
@@ -22,17 +28,24 @@ const Portfolio = () => {
           "Welcome to my portfolio.",
         ]}
         repeating={false}
-        pb={6}
         position="sticky"
-        top="104px"
+        top="10vh"
         bg="white"
         width="100%"
         zIndex={10}
+        height="7vh"
       />
 
       {/*A set of tabs to sort portfolio work */}
       <Tabs variant="unstyled" size="lg">
-        <TabList position="sticky" top="192px" bg="white" zIndex={10} pb={3}>
+        <TabList
+          position="sticky"
+          top="17vh"
+          bg="white"
+          zIndex={10}
+          pt={4}
+          pb={3}
+        >
           <Tab
             p={0}
             pr={8}
@@ -75,6 +88,7 @@ const Portfolio = () => {
                 <CardComp key={i} reverseLayout={i % 2 === 1} />
               ))} */}
               <Swap />
+              <RSI />
             </VStack>
           </TabPanel>
           <TabPanel>

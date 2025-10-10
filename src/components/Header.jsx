@@ -24,7 +24,7 @@ const Header = () => {
       top={0}
       zIndex={10}
       bg="white"
-      maxHeight="15vh"
+      height="10vh"
     >
       <Image
         src={`${process.env.PUBLIC_URL}/logo-ab.svg`}

@@ -20,7 +20,13 @@ const PortfolioCard = ({
 
   const TextSection = (
     <Box maxWidth="30%" height="100%" display="flex" flexDirection="column">
-      <Text fontSize={40} fontWeight="medium" color="primary.500">
+      <Text
+        fontSize={40}
+        fontWeight="medium"
+        color="primary.500"
+        lineHeight={1.2}
+        mb={3}
+      >
         {title}
       </Text>
 

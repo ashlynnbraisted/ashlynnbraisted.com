@@ -4,16 +4,12 @@ import {
   Flex,
   Image,
   Text,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
   IconButton,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { BsShuffle } from "react-icons/bs";
 import concertList from "../../concertList.json";
+import { MediaModal } from "../../components";
 
 // A display of photos from public/concerts
 const ConcertPhotos = () => {
@@ -128,56 +124,13 @@ const ConcertPhotos = () => {
       </Flex>
 
       {/* Modal for clicked image */}
-      {selectedPhoto && (
-        <Modal isOpen={isOpen} onClose={onClose} isCentered portal={false}>
-          <ModalOverlay bg="white" />
-          <ModalContent
-            bg="transparent"
-            boxShadow="none"
-            borderRadius={0}
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            maxWidth="90vw"
-            maxHeight="90vh"
-          >
-            <ModalBody
-              p={0}
-              position="relative"
-              display="flex"
-              flexDirection="column"
-              alignItems="center"
-            >
-              <Image
-                src={selectedPhoto.src}
-                alt={selectedPhoto.artist}
-                maxHeight="80vh"
-                maxWidth="80vh"
-                objectFit="contain"
-                borderRadius={0}
-                display="block"
-              />
-              <ModalCloseButton
-                color="white"
-                position="absolute"
-                top={2}
-                right={2}
-                zIndex={10}
-              />
-              <Box textAlign="center" mt={2}>
-                <Text fontSize={20} fontWeight="500" color="primary.500">
-                  {selectedPhoto.artist}
-                </Text>
-                {selectedPhoto.venue && (
-                  <Text fontSize={16} mt={-1}>
-                    {selectedPhoto.venue}
-                  </Text>
-                )}
-              </Box>
-            </ModalBody>
-          </ModalContent>
-        </Modal>
-      )}
+      <MediaModal
+        isOpen={isOpen}
+        onClose={onClose}
+        src={selectedPhoto?.src}
+        title={selectedPhoto?.artist}
+        subtitle={selectedPhoto?.venue}
+      />
     </>
   );
 };
