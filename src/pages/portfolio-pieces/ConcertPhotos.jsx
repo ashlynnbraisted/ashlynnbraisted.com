@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Box,
   Flex,
@@ -13,7 +13,6 @@ import { MediaModal } from "../../components";
 
 // A display of photos from public/concerts
 const ConcertPhotos = () => {
-  const [photos, setPhotos] = useState(concertList);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedPhoto, setSelectedPhoto] = useState(null);
 
@@ -32,10 +31,7 @@ const ConcertPhotos = () => {
     return shuffled;
   };
 
-  // Shuffle once on mount
-  useEffect(() => {
-    setPhotos(shuffleArray(concertList));
-  }, []);
+  const [photos, setPhotos] = shuffleArray(concertList);
 
   // Shuffle on button click
   const handleShuffle = () => {
