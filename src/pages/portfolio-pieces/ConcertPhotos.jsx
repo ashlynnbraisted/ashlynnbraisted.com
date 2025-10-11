@@ -24,7 +24,9 @@ const ConcertPhotos = () => {
     return shuffled;
   };
 
-  const [photos, setPhotos] = useState(() => shuffleArray(concertList));
+  const [photos, setPhotos] = useState(
+    Array.isArray(concertList) ? shuffleArray(concertList) : []
+  );
 
   // Shuffle on button click
   const handleShuffle = () => {

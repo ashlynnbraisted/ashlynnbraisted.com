@@ -1,11 +1,19 @@
-// App.js
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
 
+import { useEffect } from "react";
+import concertList from "./concertList.json";
 import { Header, Footer } from "./components";
 import { Home, Portfolio, Resume, About } from "./pages";
 
 function App() {
+  useEffect(() => {
+    concertList.forEach((c) => {
+      const img = new Image();
+      img.src = c.src;
+    });
+  }, []);
+
   return (
     <Router>
       <Box
