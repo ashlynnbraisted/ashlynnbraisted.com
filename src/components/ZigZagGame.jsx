@@ -154,15 +154,17 @@ const ZigzagGame = ({ ...props }) => {
         </Box>
       )}
       {/* Stars icon */}
-      <Box
-        as={BsStars}
-        color={"primary.500"}
-        position="absolute"
-        left={endPoint.x + "px"}
-        top={endPoint.y - 25 + "px"}
-        fontSize="50px"
-        zIndex={5}
-      />
+      {!finished && (
+        <Box
+          as={BsStars}
+          color={"primary.500"}
+          position="absolute"
+          left={endPoint.x + "px"}
+          top={endPoint.y - 25 + "px"}
+          fontSize="50px"
+          zIndex={5}
+        />
+      )}
     </Box>
   );
 };

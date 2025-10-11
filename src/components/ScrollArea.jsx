@@ -10,6 +10,7 @@ import { useRef, useState, useEffect } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import MediaModal from "./MediaModal";
 
+// A scrollable media carousel
 const ScrollArea = ({
   children,
   aspectRatio = false,
@@ -84,18 +85,33 @@ const ScrollArea = ({
               scrollbarWidth: "none",
             }}
             width="100%"
+            borderWidth={"1px"}
+            borderColor="secondary.200"
           >
             {items.map((child, i) => (
               <Box
                 key={i}
                 flexShrink={0}
                 scrollSnapAlign="start"
-                w="100%"
+                flex="0 0 100.5%"
                 cursor="pointer"
                 onClick={() => handleMediaClick(child)}
               >
                 {aspectRatio ? (
-                  <AspectRatio ratio={aspectRatio}>{child}</AspectRatio>
+                  <AspectRatio ratio={aspectRatio}>
+                    <Box
+                      position="relative"
+                      width="100%"
+                      height="100%"
+                      bg={"white"}
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      overflow="hidden"
+                    >
+                      {child}
+                    </Box>
+                  </AspectRatio>
                 ) : (
                   child
                 )}

@@ -13,6 +13,10 @@ import {
   Ribbles,
   RSI,
   Swap,
+  Kanbas,
+  ImageProcessor,
+  CacophonyCrossing,
+  PersonalWebsite,
 } from "./portfolio-pieces";
 import { Typewriter } from "../components";
 
@@ -79,7 +83,11 @@ const Portfolio = () => {
                 <CardComp key={i} reverseLayout={i % 2 === 1} />
               ))} */}
               <Priceline />
+              <Kanbas />
+              <ImageProcessor />
+              <CacophonyCrossing />
               <Ribbles />
+              <PersonalWebsite />
             </VStack>
           </TabPanel>
           <TabPanel>

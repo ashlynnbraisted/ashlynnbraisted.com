@@ -1,15 +1,8 @@
 import { useState } from "react";
-import {
-  Box,
-  Flex,
-  Image,
-  Text,
-  IconButton,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Flex, Text, IconButton, useDisclosure } from "@chakra-ui/react";
 import { BsShuffle } from "react-icons/bs";
 import concertList from "../../concertList.json";
-import { MediaModal } from "../../components";
+import { Image, MediaModal } from "../../components";
 
 // A display of photos from public/concerts
 const ConcertPhotos = () => {
@@ -31,7 +24,7 @@ const ConcertPhotos = () => {
     return shuffled;
   };
 
-  const [photos, setPhotos] = shuffleArray(concertList);
+  const [photos, setPhotos] = useState(() => shuffleArray(concertList));
 
   // Shuffle on button click
   const handleShuffle = () => {

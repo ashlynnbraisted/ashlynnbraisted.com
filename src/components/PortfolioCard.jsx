@@ -1,4 +1,4 @@
-import { Box, Card, Text } from "@chakra-ui/react";
+import { Box, Card, Flex, Text } from "@chakra-ui/react";
 import BadgeList from "./BadgeList";
 import ScrollArea from "./ScrollArea";
 
@@ -10,28 +10,28 @@ const PortfolioCard = ({
   media,
   description,
   reverseLayout = false,
+  aspectRatio = 16 / 9,
   ...props
 }) => {
   const MediaSection = (
-    <ScrollArea width="65%" height="100%" aspectRatio={16 / 9}>
+    <ScrollArea width="65%" height="100%" aspectRatio={aspectRatio}>
       {media}
     </ScrollArea>
   );
 
   const TextSection = (
-    <Box maxWidth="30%" height="100%" display="flex" flexDirection="column">
+    <Flex maxWidth="30%" flexDirection="column">
       <Text
         fontSize={40}
         fontWeight="medium"
         color="primary.500"
         lineHeight={1.2}
-        mb={3}
       >
         {title}
       </Text>
 
       {subtitle && (
-        <Text fontSize={20} mt={-2}>
+        <Text fontSize={20} mb={2}>
           {subtitle}
         </Text>
       )}
@@ -54,7 +54,7 @@ const PortfolioCard = ({
           pointerEvents="none"
         />
       </Box>
-    </Box>
+    </Flex>
   );
 
   return (
@@ -63,6 +63,7 @@ const PortfolioCard = ({
       flexDirection="row"
       alignItems="center"
       justifyContent="space-evenly"
+      height={575}
       width="90%"
       variant="outline"
       gap={10}

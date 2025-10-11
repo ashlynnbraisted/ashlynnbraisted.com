@@ -5,11 +5,12 @@ import {
   ModalBody,
   ModalCloseButton,
   Box,
-  Image,
   Text,
 } from "@chakra-ui/react";
 import Video from "./Video";
+import Image from "./Image";
 
+// A popup modal for media that is clicked on
 const MediaModal = ({ isOpen, onClose, src, title, subtitle }) => {
   if (!src) return null;
 
@@ -46,8 +47,8 @@ const MediaModal = ({ isOpen, onClose, src, title, subtitle }) => {
               src={src}
               alt={title || "Media preview"}
               style={{
-                maxHeight: "80vh",
-                maxWidth: "80vw",
+                maxHeight: "70vh",
+                maxWidth: "70vw",
                 borderRadius: 0,
                 display: "block",
                 objectFit: "contain",
@@ -57,8 +58,8 @@ const MediaModal = ({ isOpen, onClose, src, title, subtitle }) => {
             <Image
               src={src}
               alt={title || "Media preview"}
-              maxHeight="80vh"
-              maxWidth="80vw"
+              maxHeight="70vh"
+              maxWidth="70vw"
               objectFit="contain"
               borderRadius={0}
               display="block"

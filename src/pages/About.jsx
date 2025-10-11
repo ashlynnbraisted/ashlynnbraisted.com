@@ -144,7 +144,7 @@ const About = () => {
         </Box>
       </ExpandingBox>
       <Image
-        src={`${process.env.PUBLIC_URL}/logo-transparent.svg`}
+        src={`${process.env.PUBLIC_URL}/logo/logo-transparent.svg`}
         right={0}
         bottom={0}
         minWidth="80%"

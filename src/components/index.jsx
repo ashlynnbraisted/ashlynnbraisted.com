@@ -8,4 +8,5 @@ export { default as ScrollArea } from "./ScrollArea";
 export { default as Footer } from "./Footer";
 export { default as PortfolioCard } from "./PortfolioCard";
 export { default as Video } from "./Video";
+export { default as Image } from "./Image";
 export { default as MediaModal } from "./MediaModal";

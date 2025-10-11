@@ -3,3 +3,7 @@ export { default as Ribbles } from "./Ribbles";
 export { default as Swap } from "./Swap";
 export { default as ConcertPhotos } from "./ConcertPhotos";
 export { default as RSI } from "./RSI";
+export { default as Kanbas } from "./Kanbas";
+export { default as ImageProcessor } from "./ImageProcessor";
+export { default as CacophonyCrossing } from "./CacophonyCrossing";
+export { default as PersonalWebsite } from "./PersonalWebsite";
